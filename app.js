@@ -34,7 +34,14 @@ const body = await response.text();
 
 app.get('/action', (req, res) =>{
     let json = JSON.parse(body);
-    res.send(json['results'][1]);
+    let response;
+    for(let i = 0; i < json['results'].length; i ++){
+        let lat = json['results'][i]["latitude"];
+        if(lat >= parseInt(req.query.minlat) && lat <= parseInt(req.query.maxlat)){
+            response += ('<h1>'+json['results'][i]["latitude"] + '</h1>');
+        }
+    }
+    res.send(response);
 });
 
 app.get('/', (req, res) =>{

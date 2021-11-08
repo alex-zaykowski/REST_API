@@ -14,8 +14,6 @@ const adzuna = {
     "app_key": '11f94de775c812f68753112bde143110'
 }
 
-let query = `https://api.adzuna.com/v1/api/jobs/us/search/1?app_id=${adzuna.app_id}&app_key=${adzuna.app_key}`;
-
 let options = {
     dotfiles: "ignore",
     etag: true,
@@ -29,17 +27,14 @@ let options = {
 };
 
 app.use(express.static("public", options))
+let query = `https://api.adzuna.com/v1/api/jobs/us/search/1?app_id=${adzuna.app_id}&app_key=${adzuna.app_key}&&content-type=application/jso`;
 
-async function getData(){
-    const response = await fetch(query);
-    const body = await response.text();
-    return JSON.parse(body);
-}
+const response = await fetch(query);
+const body = await response.text();
 
 app.get('/action', (req, res) =>{
-    getData().then(data => {
-        res.send(data);
-    });
+    let json = JSON.parse(body);
+    res.send(json['results'][1]);
 });
 
 app.get('/', (req, res) =>{

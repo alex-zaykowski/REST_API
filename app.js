@@ -26,7 +26,7 @@ let options = {
     }
 };
 
-app.use(express.static("public", options))
+app.use(express.static(path.join(__dirname, '/public/')));
 let query = `https://api.adzuna.com/v1/api/jobs/us/search/1?app_id=${adzuna.app_id}&app_key=${adzuna.app_key}&&content-type=application/jso`;
 
 const response = await fetch(query);
@@ -40,11 +40,13 @@ app.get('/action', (req, res) =>{
         let lat = json['results'][i]["latitude"];
         if(lat >= parseInt(req.query.minlat) && lat <= parseInt(req.query.maxlat)){
             response += (
+                '<link rel="stylesheet" type="text/css" href="/css/main.css">' +
+                '<div class=\"\wrapper\"\>' + 
                 '<div class=\"\item\"\>' +
                  '<h1>' + '<a href=\"\ ' + json['results'][i]["redirect_url"] + ' \"\>' + json['results'][i]["title"] + '</a>' + '</h1>'
                  + '<h2>'+ json['results'][i]["created"] + '</h2>'
                  + '<p>' + json['results'][i]["description"]  + '</p>'
-                + '</div>');
+                + '</div>' + '</div>');
         }
     }
     res.send(response);

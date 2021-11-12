@@ -1,3 +1,23 @@
+.wrapper {
+    width:100%
+}
 .item{
-    font-size: 18px;
+    background-color: aliceblue;
+    margin: 0 auto;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 50%;
+    font-family:Arial, Helvetica, sans-serif;
+}
+.item a{
+    text-decoration: none;
+}
+.item h1{
+    font-size: 20px;
+}
+.item h2{
+    font-size: 14px;
+}
+.item p{
+    font-size: 12px;
 }

@@ -34,13 +34,13 @@ const body = await response.text();
 
 app.get('/action', (req, res) =>{
     let json = JSON.parse(body);
-    let response = "";
+    let response = '<link rel="stylesheet" type="text/css" href="/css/main.css">';
     for(let i = 0; i < json['results'].length; i ++){
         //console.log(json);
         let lat = json['results'][i]["latitude"];
         if(lat >= parseInt(req.query.minlat) && lat <= parseInt(req.query.maxlat)){
+
             response += (
-                '<link rel="stylesheet" type="text/css" href="/css/main.css">' +
                 '<div class=\"\wrapper\"\>' + 
                 '<div class=\"\item\"\>' +
                  '<h1>' + '<a href=\"\ ' + json['results'][i]["redirect_url"] + ' \"\>' + json['results'][i]["title"] + '</a>' + '</h1>'
